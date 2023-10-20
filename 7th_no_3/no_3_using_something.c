@@ -60,11 +60,12 @@ void main()
    write_result_to_file(B, wfp2);
    
    for (int i = 0; i < 20; i++)
-      free(B[i]);
+      free(B[i]=NULL);
    for (int i = 0; i < 4; i++)
-      free(A[i]);
+      free(A[i]=NULL);
    fclose(rfp);
    fclose(wfp);
+   fclose(wfp2);
 }
 
 void sort_Ascending(char** B)
