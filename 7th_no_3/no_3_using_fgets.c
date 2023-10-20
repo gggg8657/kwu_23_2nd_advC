@@ -3,13 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-
 void sort_Ascending(char** arr, int height);
 void sort_Descending(char** arr, int height);
 void write_result_to_file(char **arr, int height, char *filename);
-
-
 
 void main()
 {
@@ -64,7 +60,6 @@ void main()
 
     sort_Ascending(cc, 19);
     sort_Descending(cc, 19);
-    
     fclose(rfp);
     for(int iter=0; iter<5; iter++)
       free(ss[iter]);
