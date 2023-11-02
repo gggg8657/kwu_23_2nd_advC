@@ -1,0 +1,9 @@
+rice:1500
+chicken_burger:3500
+pizza:15000
+burrito:7500
+sushi:12500
+cheese_cake:25000
+pasta:12500
+milk_shake:2500
+coke:2000

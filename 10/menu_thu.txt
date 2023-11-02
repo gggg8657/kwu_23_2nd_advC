@@ -1,0 +1,9 @@
+scone:2500
+vanilla_latte:2500
+americano:1500
+iced_americano:1500
+mocha_latte:2500
+cappuccino:2500
+espresso:500
+strawberry_milk:1000
+strawberry_ade:2500
