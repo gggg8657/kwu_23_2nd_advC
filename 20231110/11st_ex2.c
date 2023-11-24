@@ -19,7 +19,7 @@ struct struct_cafe{
     struct order_list *order;
 };
 
-struct struct_cafe cafe_ptr;
+
 // Function declarations
 void print_receipt(struct struct_cafe *tmp);
 void print_drink_board(struct struct_cafe *tmp);
@@ -32,7 +32,7 @@ void initial_menulist(struct struct_cafe *cafe);
 
 
 int main() {
-    
+    struct struct_cafe cafe_ptr;
     initial_menulist(&cafe_ptr);
 
     int alpha=0;
