@@ -1,0 +1,5 @@
+cappuccino 2.99
+espresso 0.99
+strawberry_milk 1.99
+strawberry_ade 1.99
+vanilla_latte 2.99
