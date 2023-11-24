@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+//#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -34,18 +34,19 @@ void printBookList(struct Book* input, int cnt) {
 
 struct library* initial_booklist() {
     struct library* lib = (struct library*)malloc(sizeof(struct library));
-    lib->Booklist = malloc(lib->Booklist, sizeof(struct Book));
-    lib->rent = malloc(lib->rent, sizeof(struct Book));
-    lib->book_cnt = 0;
-    lib->rent_cnt = 0;
 
     struct Book book_info;
 
-    FILE* fin = fopen("./books_ansi.txt", "r"); //change the txt file name
+    FILE* fin = fopen("./storage.txt", "r"); //change the txt file name
+
+    lib->Booklist = (struct Book*)malloc(sizeof(struct Book) * 21);
+    lib->book_cnt = 0;
+    lib->rent = (struct Book*)malloc(sizeof(struct Book) * 63);
+    lib->rent_cnt = 0;
 
     char tmp[100] = { 0, };
     printf("========== Book List (ID : Book Name) ==========\n");
-    //fgets(tmp, 100, fin);
+    fgets(tmp, 100, fin);
     int T = 0, F = 0;
 
     for (int i = 0; !feof(fin); i++) {
@@ -59,7 +60,6 @@ struct library* initial_booklist() {
         strcpy(book_info.name, parsed);
         book_info.id = i + 1;
         book_info.cnt = 3;
-        lib->Booklist = realloc(lib->Booklist, sizeof(struct Book) * (i + 1));
         lib->Booklist[i] = book_info;
         lib->book_cnt++;
 
@@ -84,7 +84,6 @@ int manage_booklist(struct library* lib, int id) {
         }
         else {
             lib->Booklist[id - 1].cnt--;
-            lib->rent = realloc(lib->rent, sizeof(struct Book) * (lib->rent_cnt + 1));
             lib->rent[lib->rent_cnt] = lib->Booklist[id - 1];
             lib->rent_cnt++;
             printf("Rent a book\n");
@@ -93,10 +92,53 @@ int manage_booklist(struct library* lib, int id) {
     }
 }
 
-int main(void) {
+int admin_authentication(char *ID, int PW){
+    if (strcmp(ID, "admin") == 0 && PW==0000){
+        return 0;
+    }
+    else return 1;
+}
+int auth(struct library* lib){
+    char ID[20];
+    int PW;
+
+    printf("ID : ");
+    scanf("%s", ID);
+    printf("PW : ");
+    scanf("%d", PW);
+   
+    if (admin_authentication(ID,PW)==0)
+    {
+        printf("authentication success\n");
+        printBookList(lib->Booklist, lib->book_cnt);
+        printf("종료 : 0/ 서비스 모드 전환 : 1");
+        scanf("%d", &PW);
+        if (PW==0)
+            return 0;
+        else
+            return 1;
+    }
+    else {
+        printf("authentication failed\n");
+        
+    }
+
+}
+
+
+
+
+int main(int argc, char * argv[]) {
 
     struct library * lib = initial_booklist();
-    
+    int cmd;
+    if(strcmp(argv[1], "관리자")==0){
+        cmd = auth(lib->Booklist);
+    }
+
+    if (cmd ==0) return 0;
+    else printf("initiating service mode");
+
     int book_id = 999;
     while (1) {
         printf("\n========= Available to Borrow ==========\n");
